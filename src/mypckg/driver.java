@@ -1,9 +1,11 @@
+package mypckg;
+
 import java.util.ArrayList;
 public class driver
 {
     String[] first = {"George", "Bryan", "Jeremy", "Alvin", "Ethan", "Andrew", "Brian", "John", "Franklin", "James", "Mark"};
     String[] last = {"Sheng", "Liu", "Chen", "Peng", "Ju", "Wang", "Yin", "Wong", "Zhang", "Zhou", "Lalumia", "Lalu"};
-	ArrayList <Person> street = new ArrayList <Person>();
+    ArrayList <Person> street = new ArrayList <Person>();
     public driver()
     {
         for(int i = 0; i < 48; i++)
@@ -16,44 +18,36 @@ public class driver
         ArrayList <Person> wounded = new ArrayList <Person>();
 
 
-		//Removing the normal people
+        //Removing the normal people
         while(true)
         {
-			int bad = indexBad(street);
-			int good = indexGood(street);
-			Boolean remove = false;
+            int bad = indexBad(street);
+            int good = indexGood(street);
+            int index = -1;
             if(bad != 0 && bad != street.size() - 1)
             {
                 if(street.get(bad + 1) instanceof Good)
-					wounded.add(street.remove(bad - 1));
-
+                    index = bad - 1;
 
                 else if(street.get(bad - 1) instanceof Good)
-                    wounded.add(street.remove(bad + 1));
+                    index = bad + 1;
 
                 else
-                    wounded.add(street.remove(bad + ((int)(Math.random() * 2) * 2) - 1));
-				remove = true;
+                    index = bad + ((int)(Math.random() * 2) * 2) - 1;
             }
             else if(bad == 0 && good != 1)
-            {
-                wounded.add(street.remove(1));
-                remove = true;
-			}
+                index = 1;
 
             else if(bad == street.size() - 1 && good != street.size() - 2)
+                index = street.size() - 2;
+
+            if(index != -1)
             {
-                wounded.add(street.remove(street.size() - 2));
-                remove = true;
-			}
-			if(remove)
-			{
-				System.out.println(badGuy().name() + " has wounded " + wounded.get(wounded.size() - 1).name());
-				Bad temp = (Bad)(street.get(indexBad(street)));
-				temp.laugh();
-				Good gd = (Good)(street.get(indexGood(street)));
-				gd.phrase();
-			}
+                wounded.add(street.remove(index));
+                System.out.println(badGuy().name() + " has wounded " + wounded.get(wounded.size() - 1).name());
+                badGuy().laugh();
+                goodGuy().phrase();
+            }
 
             while(street.size() > 2)
             {
@@ -70,42 +64,39 @@ public class driver
             System.out.println("\n\n");
             print(street);
             if(street.size() == 2)
-            	break;
+                break;
         }
 
-        Person[] order = new Person[2];
-        order[0] = street.remove(randint(0, 2));
-        order[1] = street.remove(0);
+
+        Special[] order = new Special[2];
+        order[0] = (Special)(street.remove(randint(0,2)));
+        order[1] = (Special)(street.remove(0));
 
         int turn = 0;
         //Combat
         while(true)
         {
-			Person attacker = order[turn];
-			Person defender = order[1 - turn];
-			System.out.println(attacker.name() + " is attacking " + defender.name());
-			int damage = randint(0, attacker.maxDmg());
-			int defense = randint(0, defender.defense());
-			System.out.println(attacker.name() + ": " + damage + " Damage\n" + defender.name() + ": " + defense + " Defense");
-			if(!(damage - defense < 0))
-			{
-				defender.reduceHp(damage - defense);
-				System.out.println(defender.name() + "'s Health points have been reduced to " + defender.hp() + "!");
-			}
-			else
-				System.out.println(defender.name() + "'s Defense was too high!");
+            Special attacker = order[turn];
+            Special defender = order[1 - turn];
+            System.out.println(attacker.name() + " is attacking " + defender.name());
+            int damage = randint(0, attacker.maxDmg());
+            int defense = randint(0, defender.defense());
+            System.out.println(attacker.name() + ": " + damage + " Damage\n" + defender.name() + ": " + defense + " Defense");
+            if(!(damage - defense <= 0))
+            {
+                defender.reduceHp(damage - defense);
+                System.out.println(defender.name() + "'s Health points have been reduced to " + defender.hp() + "!");
+            }
+            else
+                System.out.println(defender.name() + "'s Defense was too high!");
 
-			if(defender.hp() < 0)
-			{
-				System.out.println(attacker.name() + " has defeated " + defender.name() + "!");
-				break;
-			}
-			turn = 1 - turn;
-		}
-
-
-
-
+            if(defender.hp() < 0)
+            {
+                System.out.println(attacker.name() + " has defeated " + defender.name() + "!");
+                break;
+            }
+            turn = 1 - turn;
+        }
     }
     public int randint(int min, int max) { return (int)(Math.random() * (max - min)) + min; }
     public String randName() { return first[randint(0,first.length)] + " " +  last[randint(0, last.length)]; }
