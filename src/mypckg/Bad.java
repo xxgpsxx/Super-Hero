@@ -3,9 +3,9 @@ package mypckg;
 public class Bad extends Special
 {
     private String phrase = "";
-    public Bad(String name, String job, int hp, int maxDmg, int defense, String power, Boolean cape, int level, String phrase)
+    public Bad(String name, String job, int hp, int maxDmg, int defense, String power, Boolean cape, int level, String phrase, String specialName)
     {
-        super(name, job, hp, maxDmg, defense, power, cape, level);
+        super(name, job, hp, maxDmg, defense, power, cape, level, specialName);
         this.phrase = phrase;
     }
     public void laugh() { System.out.println(phrase); }
