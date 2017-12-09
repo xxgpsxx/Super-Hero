@@ -11,7 +11,7 @@ public class driver
         for(int i = 0; i < 48; i++)
             street.add(new Person(randName(), "McDonald's Cashier", randint(50, 101), randint(0, 10), randint(0, 11)));
         street.add(randint(0, 48), new Good(randName(), "Red-Orange Lantern", 100, 23, 10, "[Undefined]", false, 5, "I liek rice", "Chinky"));
-        street.add(randint(0, 49), new Bad(randName(), "Bass Player", 100, 10, 10, "Inconvenient Rehearsal", false, 3, "You, me, tomorrow night, in this room"));
+        street.add(randint(0, 49), new Bad(randName(), "Bass Player", 100, 10, 10, "Inconvenient Rehearsal", false, 3, "You, me, tomorrow night, in this room", "Mr Lalu"));
         print(street);
 
         ArrayList <Person> safe = new ArrayList <Person>();
