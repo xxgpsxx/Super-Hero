@@ -85,7 +85,7 @@ public class driver
             System.out.println(attacker.name() + ": " + damage + " Damage\n" + defender.name() + ": " + defense + " Defense");
             if(!(damage - defense <= 0))
             {
-                defender.reduceHp(damage - defense);
+                defender.reduceHp(damage - randint(0, attacker.maxDmg()));
                 System.out.println(defender.name() + "'s Health points have been reduced to " + defender.hp() + "!");
             }
             else
